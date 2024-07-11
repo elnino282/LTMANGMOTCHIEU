@@ -4,9 +4,9 @@ using namespace std;
 
 void Nhap(int[], int&);
 void Xuat(int[], int);
-int ChanDau(int[], int);
-int ChanLonNhat(int[], int);
-void LietKe(int[], int);
+int LeDauTien(int[], int);
+int LeNhoNhat(int[], int);
+int TimGiaTri(int[], int);
 
 int main()
 {
@@ -15,8 +15,7 @@ int main()
 	Nhap(b, k);
 	cout << "Mang ban dau: ";
 	Xuat(b, k);
-	cout << "\nVi tri chan lon nhat trong mang: ";
-	LietKe(b, k);
+	cout << "\nSo chan lon nhat nho hon gia tri le: " << TimGiaTri(b, k);
 	return 0;
 }
 
@@ -35,34 +34,29 @@ void Xuat(int a[], int n)
 		cout << setw(10) << a[i];
 }
 
-int ChanDau(int a[], int n)
+int LeDauTien(int a[], int n)
 {
 	for (int i = 0; i < n; i++)
-		if (a[i] % 2 == 0)
+		if (a[i] % 2 != 0)
 			return a[i];
-	return -1;
+	return 0;
 }
 
-int ChanLonNhat(int a[], int n)
+int LeNhoNhat(int a[], int n)
 {
-	int lc = ChanDau(a, n);
-	if (lc == -1)
-		return -1;
+	int lc = LeDauTien(a, n);
+	if (lc == 0)
+		return 0;
 	for (int i = 0; i < n; i++)
-		if (a[i] % 2 == 0 && a[i] > lc)
+		if (a[i] % 2 != 0 && a[i] < lc)
 			lc = a[i];
 	return lc;
 }
 
-void LietKe(int a[], int n)
+int TimGiaTri(int a[], int n)
 {
-	int dd = ChanLonNhat(a, n);
-	if (dd == -1)
-	{
-		cout << "\nKhong co chan";
-		return;
-	}
-	for (int i = 0; i < n; i++)
-		if (a[i] == dd)
-			cout << i;
+	int lc = LeNhoNhat(a, n);
+	if (lc == 0)
+		return -1;
+	return lc - 1;
 }
