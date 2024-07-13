@@ -4,7 +4,7 @@ using namespace std;
 
 void Nhap(int[], int&);
 void Xuat(int[], int);
-int ktToanChan(int a[], int);
+void LietKe(int[], int);
 
 int main()
 {
@@ -13,11 +13,9 @@ int main()
 	Nhap(b, k);
 	cout << "Mang ban dau: ";
 	Xuat(b, k);
-	int kt = ktToanChan(b, k);
-	if (kt == 1)
-		cout << "\nMang toan chan";
-	else if (kt == 0)
-		cout << "\nMang khong toan chan";
+	
+	cout << "\nMang con co do dai lon hon 2: ";
+	LietKe(b, k);
 	return 0;
 }
 
@@ -27,7 +25,7 @@ void Nhap(int a[], int& n)
 	cin >> n;
 	srand(time(NULL));
 	for (int i = 0; i < n; i++)
-		a[i] = rand() % 200;
+		a[i] = rand() % (200 + 1) - 100;
 }
 
 void Xuat(int a[], int n)
@@ -36,15 +34,15 @@ void Xuat(int a[], int n)
 		cout << setw(10) << a[i];
 }
 
-int ktToanChan(int a[], int n)
+void LietKe(int a[], int n)
 {
-	int dem = 0;
-	for (int i = 0; i < n; i++)
-		if (a[i] % 2 == 0)
-			dem++;
-	if (dem == n)
-		return 1;
-	return 0;
+	for (int l = 3; l <= n; l++)
+	{
+		for (int vt = 0; vt <= n - l; vt++)
+		{
+			for (int i = 0; i < l; i++)
+				cout << setw(8) << a[vt + i];
+			cout << "\n";
+		}
+	}
 }
-
- 

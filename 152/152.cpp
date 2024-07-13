@@ -4,7 +4,8 @@ using namespace std;
 
 void Nhap(int[], int&);
 void Xuat(int[], int);
-int ktToanChan(int a[], int);
+bool ktNguyenTo(int);
+void DuaVeCuoi(int[], int);
 
 int main()
 {
@@ -13,11 +14,8 @@ int main()
 	Nhap(b, k);
 	cout << "Mang ban dau: ";
 	Xuat(b, k);
-	int kt = ktToanChan(b, k);
-	if (kt == 1)
-		cout << "\nMang toan chan";
-	else if (kt == 0)
-		cout << "\nMang khong toan chan";
+	DuaVeCuoi(b, k);
+
 	return 0;
 }
 
@@ -27,7 +25,7 @@ void Nhap(int a[], int& n)
 	cin >> n;
 	srand(time(NULL));
 	for (int i = 0; i < n; i++)
-		a[i] = rand() % 200;
+		a[i] = rand() % (200 + 1) - 100;
 }
 
 void Xuat(int a[], int n)
@@ -36,15 +34,26 @@ void Xuat(int a[], int n)
 		cout << setw(10) << a[i];
 }
 
-int ktToanChan(int a[], int n)
+bool ktNguyenTo(int k)
 {
 	int dem = 0;
-	for (int i = 0; i < n; i++)
-		if (a[i] % 2 == 0)
+	for (int i = 1; i <= k; i++)
+		if (k % i == 0)
 			dem++;
-	if (dem == n)
-		return 1;
-	return 0;
+	if (dem == 2)
+		return true;
+	return false;
 }
 
- 
+void DuaVeCuoi(int a[], int n)
+{
+	int vt = n - 1;
+	for (int i = n - 1; i >= 0; i--)
+		if (ktNguyenTo(a[i]))
+		{
+			int tmp = a[i];
+			a[i] = a[vt];
+			a[vt] = tmp;
+			vt--;
+		}
+}

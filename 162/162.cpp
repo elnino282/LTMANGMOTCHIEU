@@ -4,7 +4,8 @@ using namespace std;
 
 void Nhap(int[], int&);
 void Xuat(int[], int);
-int ktToanChan(int a[], int);
+void XoaViTri(int[], int&, int);
+void XoaChan(int[], int&);
 
 int main()
 {
@@ -13,11 +14,9 @@ int main()
 	Nhap(b, k);
 	cout << "Mang ban dau: ";
 	Xuat(b, k);
-	int kt = ktToanChan(b, k);
-	if (kt == 1)
-		cout << "\nMang toan chan";
-	else if (kt == 0)
-		cout << "\nMang khong toan chan";
+	XoaChan(b, k);
+	cout << "\nMang sau khi xoa gia tri chan: ";
+	Xuat(b, k);
 	return 0;
 }
 
@@ -27,7 +26,7 @@ void Nhap(int a[], int& n)
 	cin >> n;
 	srand(time(NULL));
 	for (int i = 0; i < n; i++)
-		a[i] = rand() % 200;
+		a[i] = rand() % (200 + 1) - 100;
 }
 
 void Xuat(int a[], int n)
@@ -36,15 +35,15 @@ void Xuat(int a[], int n)
 		cout << setw(10) << a[i];
 }
 
-int ktToanChan(int a[], int n)
+void XoaViTri(int a[], int& n, int k) 
 {
-	int dem = 0;
-	for (int i = 0; i < n; i++)
-		if (a[i] % 2 == 0)
-			dem++;
-	if (dem == n)
-		return 1;
-	return 0;
+	for (int i = k; i <= n - 2; i++)
+		a[i] = a[i + 1];
+	n--;
 }
-
- 
+void XoaChan(int a[], int& n)
+{
+	for (int i = n - 1; i >= 0; i--)
+		if (a[i] % 2 == 0)
+			XoaViTri(a, n, i);
+}
